@@ -27,13 +27,13 @@ class Glove:
 			values = line.split()
 			word = values[0]
 			coefs = np.asarray(values[1:], dtype='float32')
-			embeddings_index[word] = coefs
+			self.embeddings_index[word] = coefs
 		f.close()
 	def get_embedding_index(self):
 		return self.embeddings_index
 	def create_embedding_matrix(self,word_index):
 		""" word_index is tokenizer.word_index and tokenizer is from keras.preprocessing.text import Tokenizer """
-		self.embedding_matrix = np.zeros((len(word_index), self.embedding_size))
+		self.embedding_matrix = np.zeros((len(word_index)+1, self.embedding_size))
 		for word, i in word_index.items():
 			embedding_vector = self.embeddings_index.get(word)
 			if embedding_vector is not None:
